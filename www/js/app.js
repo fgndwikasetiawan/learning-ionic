@@ -39,6 +39,22 @@ angular.module('todo', ['ionic'])
 	$scope.projects = Projects.all();
 	$scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
 	$scope.taskModal = {};
+	$scope.deleteProjectModal = {};
+	
+	$ionicModal.fromTemplateUrl('new-task.html', {
+		scope: $scope,
+		animation: 'slide-in-up'
+	}).then(function(modal) {
+		$scope.taskModal = modal;
+		console.log('TodoCtrl: taskModal has been loaded');
+	});
+	
+	$ionicModal.fromTemplateUrl('delete-project.html', {
+		scope: $scope
+	}).then(function(modal) {
+		$scope.deleteProjectModal = modal;
+		console.log('TodoCtrl: deleteProjectModal has been loaded');
+	})
 	
 	$scope.newProject = function() {
 		var projectTitle = prompt('Project name');
@@ -52,13 +68,6 @@ angular.module('todo', ['ionic'])
 		Projects.setLastActiveIndex(index);
 	}
 	
-	$ionicModal.fromTemplateUrl('new-task.html', {
-		scope: $scope,
-		animation: 'slide-in-up'
-	}).then(function(modal) {
-		$scope.taskModal = modal;
-		console.log('TodoCtrl: taskModal has been loaded');
-	});
 	
 	$scope.createTask = function(task) {
 		if (!$scope.activeProject || !task)
@@ -70,6 +79,19 @@ angular.module('todo', ['ionic'])
 		$scope.taskModal.hide();
 		task.title = "";
 	};
+	
+	
+	$scope.showDeleteProjectModal = function(project) {
+		$scope.deletedProject = project;
+		$scope.deleteProjectModal.show();
+
+	}
+	
+	$scope.deleteProject = function(project) {
+		var i = $scope.projects.indexOf(project);
+		$scope.projects.splice(i, 1);
+		Projects.save($scope.projects);	
+	}
 	
 	$scope.deleteTask = function(task) {
 		var i = $scope.activeProject.tasks.indexOf(task);
@@ -84,6 +106,12 @@ angular.module('todo', ['ionic'])
 	$scope.closeNewTask = function() {
 		$scope.taskModal.hide();
 	};
+	
+	$scope.closeDeleteProjectModal = function() {
+		$scope.deleteProjectModal.hide();
+		$scope.deletedProject = null;
+	}
+	
 	
 	$timeout(function() {
 		if ($scope.projects.length == 0) {

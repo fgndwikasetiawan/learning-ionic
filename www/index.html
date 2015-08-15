@@ -5,12 +5,9 @@
     <meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width">
     <title></title>
 
-    <link href="lib/ionic/css/ionic.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet">
 
-    <!-- IF using Sass (run gulp sass first), then uncomment below and remove the CSS includes above
+    <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
-    -->
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -50,9 +47,10 @@
         </ion-header-bar>
         <ion-content>
           <ion-list>
-            <ion-item menu-close ng-repeat="project in projects" ng-click="selectProject(project, $index)"
+            <ion-item class="item-button-right" menu-close ng-repeat="project in projects" ng-click="selectProject(project, $index)"
               ng-class="{active: activeProject == project}">
               {{project.title}}
+              <button class="button button-icon button-small ion-close-round" ng-click="showDeleteProjectModal(project)"></button>
             </ion-item>
           </ion-list>
         </ion-content>
@@ -81,6 +79,20 @@
         </ion-content>
       </ion-modal-view>
     </script>
+    
+    <script id="delete-project.html" type="text/ng-template">
+    <ion-modal-view>
+      <ion-header-bar class="bar-secondary">
+        <h1 class="title">Delete Project</h1>
+      </ion-header-bar>
+      
+      <ion-content>
+       <p>Are you sure you want to delete {{deletedProject.title}}?</p>
+       <button class="button button-assertive" ng-click="closeDeleteProjectModal()">Yes</button>
+       <button class="button button-balanced" ng-click="closeDeleteProjectModal()">No!</button>
+      </ion-content>
+    </ion-modal-view>
+  </script>
     
   </body>
 </html>
