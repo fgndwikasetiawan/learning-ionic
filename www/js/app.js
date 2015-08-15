@@ -17,7 +17,7 @@ angular.module('todo', ['ionic'])
 			title: task.title
 		});
 		$scope.taskModal.hide();
-		$scope.task.title = '';
+		task.title = "";
 	};
 	
 	$scope.newTask = function() {
@@ -27,4 +27,4 @@ angular.module('todo', ['ionic'])
 	$scope.closeNewTask = function() {
 		$scope.taskModal.hide();
 	};
-});
+});	
