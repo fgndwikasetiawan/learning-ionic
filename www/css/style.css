@@ -1,1 +1,16 @@
 /* Empty. Add your own CSS if you like */
+
+ion-header-bar.bar {
+	height: 80px;
+}
+
+.has-header {
+	top: 80px;
+}
+
+.center-v {
+	position: relative;
+	margin: 0;
+	top: 50% !important;
+	transform: translate(0, -50%) !important;
+}
