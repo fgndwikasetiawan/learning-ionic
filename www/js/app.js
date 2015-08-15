@@ -38,6 +38,8 @@ angular.module('todo', ['ionic'])
 	
 	$scope.projects = Projects.all();
 	$scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
+	$scope.taskModal = {};
+	
 	$scope.newProject = function() {
 		var projectTitle = prompt('Project name');
 		if (projectTitle) {
@@ -49,10 +51,6 @@ angular.module('todo', ['ionic'])
 		$scope.activeProject = project;
 		Projects.setLastActiveIndex(index);
 	}
-	
-	$scope.tasks = [];
-	
-	$scope.taskModal = {};
 	
 	$ionicModal.fromTemplateUrl('new-task.html', {
 		scope: $scope,
@@ -72,6 +70,12 @@ angular.module('todo', ['ionic'])
 		$scope.taskModal.hide();
 		task.title = "";
 	};
+	
+	$scope.deleteTask = function(task) {
+		var i = $scope.activeProject.tasks.indexOf(task);
+		$scope.activeProject.tasks.splice(i, 1);
+		Projects.save($scope.projects);
+	}
 	
 	$scope.newTask = function() {
 		$scope.taskModal.show();
