@@ -15,6 +15,15 @@ $assertive:                       #ef473a !default;
 $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
+.font-lg {
+  font-size: 1.2em !important; }
+
+p.center, span.center {
+  text-align: center; }
+
+ion-modal-view .modal-header {
+  height: 50px; }
+
 /*!
   Ionicons, v2.0.1
   Created by Ben Sperry for the Ionic Framework, http://ionicons.com/
@@ -4320,16 +4329,16 @@ ion-tabs.tabs-color-active-dark .tab-item {
   overflow: hidden;
   min-height: 100%;
   width: 100%;
-  background-color: #fff; }
+  background-color: transparent; }
 
-@media (min-width: 680px) {
+@media (min-width: 0) {
   .modal {
-    top: 20%;
-    right: 20%;
-    bottom: 20%;
-    left: 20%;
-    min-height: 240px;
-    width: 60%; }
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    left: 10%;
+    min-height: 0;
+    width: 80%; }
   .modal.ng-leave-active {
     bottom: 0; }
   .platform-ios.platform-cordova .modal-wrapper .modal .bar-header:not(.bar-subheader) {

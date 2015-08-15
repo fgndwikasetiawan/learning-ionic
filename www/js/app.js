@@ -28,13 +28,25 @@ angular.module('todo', ['ionic'])
 	}
 })
 
-.controller('TodoCtrl', function($scope, $ionicModal, $timeout, Projects) {
+.controller('TodoCtrl', function($scope, $ionicModal, $timeout, Projects, $ionicSideMenuDelegate) {
 	var createProject = function(projectTitle) {
 		var newProject = Projects.newProject(projectTitle);
 		$scope.projects.push(newProject);
 		Projects.save($scope.projects);
 		$scope.selectProject(newProject, $scope.projects.length-1);
 	}
+	
+	var promptFirstProject = function() {
+		if ($scope.projects.length == 0) {
+			while(true) {
+				var projectTitle = prompt('Your first project title:');
+				if (projectTitle) {
+					createProject(projectTitle);
+					break;
+				}
+			}
+		}
+	};
 	
 	$scope.projects = Projects.all();
 	$scope.activeProject = $scope.projects[Projects.getLastActiveIndex()];
@@ -66,6 +78,7 @@ angular.module('todo', ['ionic'])
 	$scope.selectProject = function(project, index) {
 		$scope.activeProject = project;
 		Projects.setLastActiveIndex(index);
+		$ionicSideMenuDelegate.toggleLeft();
 	}
 	
 	
@@ -90,7 +103,15 @@ angular.module('todo', ['ionic'])
 	$scope.deleteProject = function(project) {
 		var i = $scope.projects.indexOf(project);
 		$scope.projects.splice(i, 1);
-		Projects.save($scope.projects);	
+		Projects.save($scope.projects);
+		$scope.deletedProject = null;	
+		if ($scope.projects.length == 0) {
+			promptFirstProject();
+		}
+		else {
+			$scope.selectProject($scope.projects[0], 0);
+		}
+		$scope.closeDeleteProjectModal();
 	}
 	
 	$scope.deleteTask = function(task) {
@@ -109,19 +130,13 @@ angular.module('todo', ['ionic'])
 	
 	$scope.closeDeleteProjectModal = function() {
 		$scope.deleteProjectModal.hide();
-		$scope.deletedProject = null;
+		$ionicSideMenuDelegate.toggleLeft();
+	}
+	
+	$scope.toggleSidemenu = function() {
+		$ionicSideMenuDelegate.toggleLeft();
 	}
 	
 	
-	$timeout(function() {
-		if ($scope.projects.length == 0) {
-			while(true) {
-				var projectTitle = prompt('Your first project title:');
-				if (projectTitle) {
-					createProject(projectTitle);
-					break;
-				}
-			}
-		}
-	})
+	$timeout(promptFirstProject)
 });	

@@ -8,6 +8,7 @@
 
     <!-- compiled css output -->
     <link href="css/ionic.app.css" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet">
 
     <!-- ionic/angularjs js -->
     <script src="lib/ionic/js/ionic.bundle.js"></script>
@@ -24,7 +25,9 @@
       
       <ion-side-menu-content>
         <ion-header-bar class="bar-calm">
-          <button menu-toggle="left" class="button button-icon icon ion-navicon"></button>
+          <button class="button button-icon" ng-click="toggleSidemenu()">
+            <i class="icon ion-navicon"></i>
+          </button>
           <h1 class="title">{{activeProject.title}}</h1>
           <button class="button button-icon" ng-click="newTask()">
             <i class="icon ion-compose"></i>
@@ -47,7 +50,7 @@
         </ion-header-bar>
         <ion-content>
           <ion-list>
-            <ion-item class="item-button-right" menu-close ng-repeat="project in projects" ng-click="selectProject(project, $index)"
+            <ion-item class="item-button-right" ng-repeat="project in projects" ng-click="selectProject(project, $index)"
               ng-class="{active: activeProject == project}">
               {{project.title}}
               <button class="button button-icon button-small ion-close-round" ng-click="showDeleteProjectModal(project)"></button>
@@ -60,36 +63,44 @@
     
     <script id="new-task.html" type="text/ng-template">
       <ion-modal-view>
-        <ion-header-bar class="bar-secondary">
-          <h1 class="title">New Task</h1>
-          <button class="button button-clear button-positive" ng-click="closeNewTask()">Cancel</button>
-        </ion-header-bar>
-        
         <ion-content>
-          <form ng-submit="createTask(task)">
-            <div class="list">
-              <label class="item item-input">
-                <input type="text" placeholder="What do you need to do?" ng-model="task.title">
-              </label>
-            </div>
-            <div class="padding">
-              <button type="submit" class="button button-block button-positive">Create Task</button>
-            </div>
-          </form>
+          <div class="card">
+            <div class="item item-divider item-button-right modal-header">
+              New Task
+              <button class="button button-clear button-small ion-close" ng-click="closeNewTask()"></button>
+            </div>  
+            <form ng-submit="createTask(task)">
+              <div class="item">
+                <label class="item item-input">
+                  <input type="text" placeholder="What do you need to do?" ng-model="task.title">
+                </label>
+              </div>
+              <div class="item">
+                <button type="submit" class="button button-block button-positive">Create Task</button>
+              </div>
+            </form>
+          </div>
         </ion-content>
       </ion-modal-view>
     </script>
     
     <script id="delete-project.html" type="text/ng-template">
     <ion-modal-view>
-      <ion-header-bar class="bar-secondary">
-        <h1 class="title">Delete Project</h1>
-      </ion-header-bar>
-      
       <ion-content>
-       <p>Are you sure you want to delete {{deletedProject.title}}?</p>
-       <button class="button button-assertive" ng-click="closeDeleteProjectModal()">Yes</button>
-       <button class="button button-balanced" ng-click="closeDeleteProjectModal()">No!</button>
+      <div class="card">
+        <div class="item item-divider modal-header">
+          Delete Project
+        </div>
+        <div class="item item-text-wrap">
+         <p class="font-lg center">Are you sure you want to delete {{deletedProject.title}}?</p>
+         </div>
+         <div class="item">
+           <div class="button-bar">
+             <button class="button button-small button-assertive" ng-click="deleteProject(deletedProject)">Yes</button>
+             <button class="button button-small button-balanced" ng-click="closeDeleteProjectModal()">No!</button>
+           </div>
+         </div>
+       </div>
       </ion-content>
     </ion-modal-view>
   </script>

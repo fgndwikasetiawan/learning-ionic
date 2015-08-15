@@ -17,6 +17,23 @@ $dark:                            #444 !default;
 
 $bar-height: 80px;
 
+
+$modal-bg-color: rgba(0,0,0,0);
+$modal-inset-mode-break-point: 0;
+
+.font-lg {
+	font-size: 1.2em !important;	
+}
+
+p.center, span.center {
+	text-align: center;
+}
+
+ion-modal-view .modal-header {
+	height: 50px;
+}
+
+
 // The path for our ionicons font files, relative to the built CSS in www/css
 $ionicons-font-path: "../lib/ionic/fonts" !default;
 
