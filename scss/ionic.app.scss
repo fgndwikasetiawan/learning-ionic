@@ -15,11 +15,13 @@ $royal:                           #886aea !default;
 $dark:                            #444 !default;
 */
 
-$bar-height: 80px;
+$bar-height: 50px;
 
 
 $modal-bg-color: rgba(0,0,0,0);
 $modal-inset-mode-break-point: 0;
+$modal-inset-mode-left: 10%;
+$modal-inset-mode-right: 10%;
 
 .font-lg {
 	font-size: 1.2em !important;	

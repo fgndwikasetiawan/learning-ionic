@@ -25,7 +25,7 @@
       
       <ion-side-menu-content>
         <ion-header-bar class="bar-calm">
-          <button class="button button-icon" ng-click="toggleSidemenu()">
+          <button class="button button-icon" style="height: auto" ng-click="toggleSidemenu()">
             <i class="icon ion-navicon"></i>
           </button>
           <h1 class="title">{{activeProject.title}}</h1>
@@ -96,8 +96,8 @@
          </div>
          <div class="item">
            <div class="button-bar">
-             <button class="button button-small button-assertive" ng-click="deleteProject(deletedProject)">Yes</button>
-             <button class="button button-small button-balanced" ng-click="closeDeleteProjectModal()">No!</button>
+             <button class="button button-assertive" ng-click="deleteProject(deletedProject)">Yes</button>
+             <button class="button button-balanced" ng-click="closeDeleteProjectModal()">No!</button>
            </div>
          </div>
        </div>
